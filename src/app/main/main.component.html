@@ -1,0 +1,99 @@
+<div class="main">
+    <div class="container-fluid h-100">
+        <div class="row mainRow h-100">
+            <section class="col-lg-4 col-sm-12 sideBar">
+                <div class="topButtons">
+                    <button class="btn SearchFP" (click)="openSearchBar()">Search for places</button>
+                    <button class="btn location"><i class="fa-solid fa-location-crosshairs"></i></button>
+                </div>
+                <div class="mb-0" style="width: 200px; height: 230px;">
+                    <!-- <img src="../../assets/images/Shower.png" class="w-100"/> -->
+                    <div class="newImage">
+                        <img src="http://openweathermap.org/img/wn/10d@4x.png"/>
+                    </div>
+                </div>
+                <p class="tempDeg">15<span>ºC</span></p>
+                <p class="tempState mb-5">Shower</p>
+                <p class="todayDate">Today . <span>Fri, 5 Jun</span></p>
+                <p class="currentLocation"><i class="fa-solid fa-location-dot"></i> Helsinki</p>
+            </section>
+
+            <section class="col-lg-4 col-sm-12 searchBar" [class.opening] = 'open === true'>
+                <div class="py-2 text-end mb-2"><i class="fa-solid fa-xmark fs-4 closeIcon" (click)="closeSearchBar()"></i></div>
+                <div class="mb-3 searchField">
+                    <input type="text" class="form-control" name="searchInput" placeholder="search location" #searchInput (keyup)="getCitySuggestions(searchInput.value)" >
+                    <button class="btn" type="button" id="searchButton" (click)="getCityForecast()">Search</button>
+                </div>
+                <div class="suggestions">
+                    <ul>
+                        <li class="d-flex justify-content-between align-items-center mb-3" *ngFor="let city of citySuggestions" (click)="selectCity(city)"><p class="m-0">{{city.name}}, {{city.country}}</p><i class="fa-solid fa-chevron-right "></i></li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="col-lg-8 col-sm-12 restInfo">
+                <div class="container">
+                    <div class="row">
+                        <div class="temperatureUB d-flex justify-content-end">
+                            <button class="btn">ºC</button>
+                            <button class="btn">ºF</button>
+                        </div>
+                        <div class="col-12 days">
+                            <div class="day">
+                                <p class="m-0">Tomorrow</p>
+                                <div>
+                                    <!-- <img src="../../assets/images/Thunderstorm.png" /> -->
+                                    <img src="http://openweathermap.org/img/wn/10d@4x.png" />
+                                </div>
+                                <div class="d-flex justify-content-between w-100">
+                                    <p class="m-0">16ºC</p>
+                                    <p class="m-0">11ºC</p>
+                                </div>
+                            </div>
+                            <div class="day">.g-col-4</div>
+                            <div class="day">.g-col-4</div>
+                            <div class="day">.g-col-4</div>
+                            <div class="day">.g-col-4</div>
+                            <div class="day">.g-col-4</div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="row g-3 my-2 hightlights">
+                                <h3>Today’s Hightlights</h3>
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="p-3 border Hlight h-100">
+                                        <p>Wind status</p>
+                                        <p><span>7</span>mph</p>
+                                        <p class="lastP"><span><i class="fa-solid fa-location-arrow"></i></span>WSW</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="p-3 border Hlight">
+                                        <p>Humidity</p>
+                                        <p><span>84</span>%</p>
+                                        <div class="w-100 px-4 humidityMeter">
+                                            <p class="d-flex justify-content-between"><span>0%</span> <span>50%</span> <span>100%</span></p>
+                                            <meter class="w-100" id="humidity" value="84" min="0" max="100"></meter>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="p-3 border Hlight">
+                                        <p>Visibility</p>
+                                        <p class="m-0"><span>6.4</span> miles</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="p-3 border Hlight">
+                                        <p>Air Pressure</p>
+                                        <p class="m-0"><span>998</span> mb</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

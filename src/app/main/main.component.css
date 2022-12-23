@@ -1,0 +1,364 @@
+.main {
+    background-color: #100E1D;
+    height: 100%;
+    font-family: 'Raleway', sans-serif;
+}
+
+/* .mainRow .col-4 {
+    width: 30%;
+} */
+
+.sideBar {
+    background-color: #1E213A;
+    /* width: 30%; */
+    height: 100%;
+    min-height: 100vh;
+    position: relative;
+    z-index: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sideBar::before {
+    content: "";
+    background-image: url(../../assets/images/Cloud-background.png);
+    background-repeat: no-repeat;
+    background-position: top;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    z-index: -1;
+    opacity: 10%;
+}
+
+.sideBar .topButtons {
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.sideBar .topButtons .SearchFP {
+    background-color: #6E707A;
+    color: white;
+    border-radius: 0;
+}
+
+.sideBar .topButtons .SearchFP:hover {
+    box-shadow: 0px 3px 7px #151414;
+}
+
+.sideBar .topButtons .location {
+    color: white;
+    background-color: #6E707A;
+    border-radius: 50%;
+    font-size: 19px;
+}
+
+.sideBar .topButtons .location:hover {
+    box-shadow: 0px 3px 7px #151414;
+}
+
+.sideBar .tempDeg {
+    color: #E7E7EB;
+    font-size: 90px;
+    font-weight: 500;
+}
+
+.sideBar .tempDeg span {
+    font-size: 25px;
+    color: var(--color3);
+}
+
+.sideBar .tempState {
+    color: var(--color3);
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.sideBar .todayDate,
+.sideBar .currentLocation {
+    color: var(--color3);
+}
+
+/* ********************************* Search Bar ***************************************** */
+.searchBar
+{
+    position: absolute;
+    top:0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--color1);
+    transform: rotateY(90deg);
+    transform-origin: center left;
+    transition: 0.3s all ;
+    color:white;
+}
+
+.opening
+{
+    transform: rotateY(0deg);
+}
+
+.closeIcon
+{
+    cursor: pointer;
+    color: white;
+}
+
+.searchBar .searchField
+{
+    display: flex;
+}
+
+.searchBar .searchField input
+{
+    border-radius: 0;
+    margin-right: 12px;
+    background-color: transparent;
+    color:white;
+    padding: 12px;
+}
+
+.searchBar .searchField input:focus
+{
+    box-shadow: none;
+}
+
+.searchBar .searchField button
+{
+    border-radius: 0;
+    background-color: #3C47E9;
+    color:white;
+    padding: 12px;
+}
+
+.searchBar .suggestions ul
+{
+    list-style: none;
+    padding: 0;
+}
+
+.searchBar .suggestions ul li
+{
+    padding:20px 12px;
+    transition: 0.3s all;
+    border: 1px solid transparent;
+    cursor:url('../../assets/images/hand-pointer-regular.png') , auto;
+}
+
+.searchBar .suggestions ul li:hover
+{
+    border: 1px solid #616475;
+}
+
+
+.searchBar .suggestions ul li i
+{
+    transition: 0.3s all;
+    opacity: 0;
+    animation-duration: 0.9s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;   
+    color: #616475;
+    cursor: pointer;
+}
+
+.searchBar .suggestions ul li:hover i
+{
+    animation-name: flashing;
+}
+
+@keyframes flashing {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
+
+
+.fa-hand-pointer
+{
+    font-size: 25px;
+}
+
+/* ********************************* Rest information *********************************** */
+
+/* .mainRow .col-8 {
+    width: 70%;
+} */
+
+.restInfo .temperatureUB {
+    margin: 10px 0 10px 0;
+}
+
+.restInfo .temperatureUB button {
+    border-radius: 50%;
+    background-color: #E7E7EB;
+    font-weight: bold;
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+}
+
+.restInfo .temperatureUB button.choosed
+{
+    background-color: #585676;
+    color:var(--color2);
+}
+
+.newImage
+{
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+}
+
+.restInfo .days {
+    display: grid;
+    /* grid-template-columns: repeat(5, minmax(134px, 1fr)); */
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(137px, 1fr);
+    overflow-x: auto !important;
+    gap: 10px;
+    color: var(--color2);
+    font-size: 18px;
+    padding-bottom: 15px;
+}
+
+.restInfo .days::-webkit-scrollbar {
+    height: 8px;
+}
+
+.restInfo .days::-webkit-scrollbar-button {
+    width: calc(25% - 50px);
+}
+
+.restInfo .days::-webkit-scrollbar-track {
+    outline: 2px solid var(--color3);
+    border-radius: 50px;
+}
+
+.restInfo .days::-webkit-scrollbar-thumb {
+    border: 3px solid #ec6e4c;
+    border-radius: 50px;
+    background-color: #ec6e4c;
+}
+
+.restInfo .days .day {
+    background-color: var(--color1);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.restInfo .days .day div:first-of-type {
+    width: 90px;
+    height: 90px;
+    margin-bottom: 16px;
+}
+
+.restInfo .days .day div:first-of-type img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+/* ********************************* hightlights ***************************** */
+.hightlights {
+    color: white;
+}
+
+.hightlights h3 {
+    margin: 10px 0px 0px;
+}
+
+.hightlights .Hlight {
+    background-color: var(--color1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px !important;
+}
+
+.hightlights .Hlight>* {
+    margin: 0;
+}
+
+.hightlights .Hlight p:nth-child(2) {
+    font-size: 25px;
+    margin-bottom: 16px;
+}
+
+.hightlights .Hlight p:nth-child(2) span {
+    font-size: 65px;
+    font-weight: bold;
+    line-height: 70px;
+}
+
+.hightlights .Hlight p.lastP {
+    display: flex;
+    align-items: center;
+}
+
+.hightlights .Hlight > p.lastP span {
+    background-color: #585676;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 5px;
+}
+
+
+#humidity {
+ height: 20px;   
+}
+
+#humidity::-webkit-meter-bar {
+    background: #E7E7EB;
+}
+
+#humidity::-webkit-meter-optimum-value {
+    background: #FFEC65;
+}
+#humidity::-webkit-meter-suboptimum-value {
+    background: #FFEC65;
+}
+#humidity::-webkit-meter-even-less-good-value {
+    background: #FFEC65;
+}
+
+.humidityMeter p
+{
+    margin: 0;
+}
+
+.humidityMeter p
+{
+    line-height: 20px;
+}
+
+/* ********************************************************************** */
+
+/* **************************** media query ***************************** */
+@media(min-width: 576px) {
+    .restInfo .container {
+        max-width: 90%;
+    }
+
+    .restInfo .days::-webkit-scrollbar-button {
+        width: calc(25% - 90px);
+    }
+}
+
+
+@media(min-width: 992px) {
+    .restInfo .container {
+        max-width: 80%;
+    }
+}
