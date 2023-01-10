@@ -4,18 +4,19 @@
             <section class="col-lg-4 col-sm-12 sideBar">
                 <div class="topButtons">
                     <button class="btn SearchFP" (click)="openSearchBar()">Search for places</button>
-                    <button class="btn location"><i class="fa-solid fa-location-crosshairs"></i></button>
+                    <button class="btn location" (click)="getMyLocation()"><i class="fa-solid fa-location-crosshairs"></i></button>
                 </div>
                 <div class="mb-0" style="width: 200px; height: 230px;">
                     <!-- <img src="../../assets/images/Shower.png" class="w-100"/> -->
-                    <div class="newImage">
+                    <!-- <div class="newImage">
                         <img src="http://openweathermap.org/img/wn/10d@4x.png"/>
-                    </div>
+                    </div> -->
+                    <img src= "{{'../../assets/images/'+today.weather[0].icon+'.png'}}"/>
                 </div>
-                <p class="tempDeg">15<span>ºC</span></p>
-                <p class="tempState mb-5">Shower</p>
-                <p class="todayDate">Today . <span>Fri, 5 Jun</span></p>
-                <p class="currentLocation"><i class="fa-solid fa-location-dot"></i> Helsinki</p>
+                <p class="tempDeg">{{rounding(today.main.temp,0)}}<span [ngSwitch]="tempUnit"><span *ngSwitchCase="'metric'">ºC</span><span *ngSwitchCase="'imperial'">ºF</span></span></p>
+                <p class="tempState mb-5">{{today.weather[0].main}}</p>
+                <p class="todayDate">Today . <span>{{todaysDate}}</span></p>
+                <p class="currentLocation"><i class="fa-solid fa-location-dot"></i> {{cityForecast.city.name || "loading"}}</p>
             </section>
 
             <section class="col-lg-4 col-sm-12 searchBar" [class.opening] = 'open === true'>
@@ -35,26 +36,22 @@
                 <div class="container">
                     <div class="row">
                         <div class="temperatureUB d-flex justify-content-end">
-                            <button class="btn">ºC</button>
-                            <button class="btn">ºF</button>
+                            <button class="btn" (click)="choosedUnit('metric')" [class.choosed]="tempUnit === 'metric'">ºC</button>
+                            <button class="btn" (click)="choosedUnit('imperial')" [class.choosed]="tempUnit === 'imperial'">ºF</button>
                         </div>
                         <div class="col-12 days">
-                            <div class="day">
-                                <p class="m-0">Tomorrow</p>
+                            <div class="day" *ngFor="let day of cityForecast16; index as i">
+                                <p class="m-0" [ngSwitch]="i"><span *ngSwitchCase="'0'">Now</span> <span *ngSwitchDefault>{{convertDate(day.dt)}}</span></p>
                                 <div>
                                     <!-- <img src="../../assets/images/Thunderstorm.png" /> -->
-                                    <img src="http://openweathermap.org/img/wn/10d@4x.png" />
+                                    <!-- <img src="http://openweathermap.org/img/wn/10d@4x.png" /> -->
+                                    <img src= "{{'../../assets/images/'+day.weather[0].icon+'.png'}}"/>
                                 </div>
                                 <div class="d-flex justify-content-between w-100">
-                                    <p class="m-0">16ºC</p>
-                                    <p class="m-0">11ºC</p>
+                                    <p class="m-0" [ngSwitch]="tempUnit">{{rounding(day.main.temp_max,1)}}<span *ngSwitchCase="'metric'">ºC</span><span *ngSwitchCase="'imperial'">ºF</span></p>
+                                    <p class="m-0" [ngSwitch]="tempUnit">{{rounding(day.main.temp_min,2)}}<span *ngSwitchCase="'metric'">ºC</span><span *ngSwitchCase="'imperial'">ºF</span></p>
                                 </div>
                             </div>
-                            <div class="day">.g-col-4</div>
-                            <div class="day">.g-col-4</div>
-                            <div class="day">.g-col-4</div>
-                            <div class="day">.g-col-4</div>
-                            <div class="day">.g-col-4</div>
                         </div>
 
                         <div class="col-12">
@@ -63,30 +60,30 @@
                                 <div class="col-md-6 col-sm-12">
                                     <div class="p-3 border Hlight h-100">
                                         <p>Wind status</p>
-                                        <p><span>7</span>mph</p>
-                                        <p class="lastP"><span><i class="fa-solid fa-location-arrow"></i></span>WSW</p>
+                                        <p [ngSwitch]="tempUnit"><span>{{rounding(today.wind.speed,0)}}</span><span *ngSwitchCase="'metric'"> m/s</span><span *ngSwitchCase="'imperial'"> mph</span></p>
+                                        <p class="lastP"><span><i class="fa-solid fa-location-arrow"></i></span> {{getWDirection(today.wind.deg)}}</p>
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-sm-12">
                                     <div class="p-3 border Hlight">
                                         <p>Humidity</p>
-                                        <p><span>84</span>%</p>
+                                        <p><span>{{today.main.humidity}}</span>%</p>
                                         <div class="w-100 px-4 humidityMeter">
                                             <p class="d-flex justify-content-between"><span>0%</span> <span>50%</span> <span>100%</span></p>
-                                            <meter class="w-100" id="humidity" value="84" min="0" max="100"></meter>
+                                            <meter class="w-100" id="humidity" [value]="today.main.humidity" min="0" max="100"></meter>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-sm-12">
                                     <div class="p-3 border Hlight">
                                         <p>Visibility</p>
-                                        <p class="m-0"><span>6.4</span> miles</p>
+                                        <p class="m-0"><span>10</span> km</p>
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-sm-12">
                                     <div class="p-3 border Hlight">
                                         <p>Air Pressure</p>
-                                        <p class="m-0"><span>998</span> mb</p>
+                                        <p class="m-0"><span>{{today.main.pressure}}</span> hPa</p>
                                     </div>
                                 </div>
                             </div>

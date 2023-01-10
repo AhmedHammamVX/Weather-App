@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
 import { TestComponent } from './test/test.component';
+import { NgxAnimatedCounterModule } from '@bugsplat/ngx-animated-counter';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { TestComponent } from './test/test.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxAnimatedCounterModule
   ],
   providers: [],
   bootstrap: [AppComponent]

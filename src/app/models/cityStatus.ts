@@ -1,30 +1,45 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+export class cityStatus {
+    city : {
+        name: string;
+    };
 
-@Injectable({
-  providedIn: 'root'
-})
-export class ApiService {
+    list : [
+        {
+            dt:number;
+            main: {
+                humidity: number;
+                pressure: number;
+                temp: number;
+                temp_max: number;
+                temp_min: number;
+            };
 
-  constructor(private httpClient:HttpClient) { }
-  api:string = "858e005f166fc977d1173a497a742ec7";
+            visibility: number;
 
-  //get city suggestions with lat and lon
-  getCitySuggestions = (cityName:string)=>{
-    return this.httpClient.get(`https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=${this.api}`);
-  }
+            weather: [
+                {
+                    description: string;
+                    icon: string;
+                    main: string;
+                }
+            ];
 
-  // get city forecast for the next 5 days
-  // *For temperature in Fahrenheit use units = imperial
-  // *For temperature in Celsius use units = metric
-  getCityForecast = (lat:number,lon:number,unit:string)=>{
-    return this.httpClient.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${this.api}&units=${unit}`);
-  }
-  //get weather direction 
-  //will just put it here till i understand why it didnt work in cityStatus class!!
-  //another question about why.. when i choose my current location the citySuggestions array get changes !!!
-  getWDirection(deg:number)
+            wind: {
+                deg:number;
+                speed:number;
+            };
+        }
+    ];
+
+    constructor(city:any ,list:any)
     {
+        this.city = city;
+        this.list = list;
+    }
+
+    /* getWeatherDirection ()
+    {
+        let deg = this.list[0].wind.deg;
         if (deg>11.25 && deg<33.75){
             return "NNE";
           }else if (deg>33.75 && deg<56.25){
@@ -58,6 +73,6 @@ export class ApiService {
           }else{
             return "N"; 
           }
-    }
+    } */
 
 }

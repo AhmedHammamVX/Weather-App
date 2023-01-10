@@ -267,6 +267,7 @@
 }
 
 /* ********************************* hightlights ***************************** */
+
 .hightlights {
     color: white;
 }
@@ -292,7 +293,7 @@
     margin-bottom: 16px;
 }
 
-.hightlights .Hlight p:nth-child(2) span {
+.hightlights .Hlight p:nth-child(2) span:first-child {
     font-size: 65px;
     font-weight: bold;
     line-height: 70px;
@@ -312,6 +313,11 @@
     justify-content: center;
     align-items: center;
     margin-right: 5px;
+}
+
+.hightlights .Hlight > p.lastP span i
+{
+    transition: 0.5 all;
 }
 
 
