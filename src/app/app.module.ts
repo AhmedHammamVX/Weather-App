@@ -17,7 +17,7 @@ import { NgxAnimatedCounterModule } from '@bugsplat/ngx-animated-counter';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    NgxAnimatedCounterModule
+    NgxAnimatedCounterModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

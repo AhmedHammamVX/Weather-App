@@ -21,9 +21,12 @@
 
             <section class="col-lg-4 col-sm-12 searchBar" [class.opening] = 'open === true'>
                 <div class="py-2 text-end mb-2"><i class="fa-solid fa-xmark fs-4 closeIcon" (click)="closeSearchBar()"></i></div>
-                <div class="mb-3 searchField">
-                    <input type="text" class="form-control" name="searchInput" placeholder="search location" #searchInput (keyup)="getCitySuggestions(searchInput.value)" >
-                    <button class="btn" type="button" id="searchButton" (click)="getCityForecast()">Search</button>
+                <div class="mb-3">
+                    <div class="searchField">
+                        <input type="text" class="form-control" name="searchInput" placeholder="search location" #searchInput (keyup)="getCitySuggestions(searchInput.value)" autocomplete="off">
+                        <button class="btn" type="button" id="searchButton" (click)="getCityForecast()">Search</button>
+                    </div>
+                    <p *ngIf="errorState">please fill out this field!</p>
                 </div>
                 <div class="suggestions">
                     <ul>
@@ -45,7 +48,7 @@
                                 <div>
                                     <!-- <img src="../../assets/images/Thunderstorm.png" /> -->
                                     <!-- <img src="http://openweathermap.org/img/wn/10d@4x.png" /> -->
-                                    <img src= "{{'../../assets/images/'+day.weather[0].icon+'.png'}}"/>
+                                    <img src= "{{'../../assets/images/'+day.weather[0].icon+'.png'}}" [title]="day.weather[0].description"/>
                                 </div>
                                 <div class="d-flex justify-content-between w-100">
                                     <p class="m-0" [ngSwitch]="tempUnit">{{rounding(day.main.temp_max,1)}}<span *ngSwitchCase="'metric'">ºC</span><span *ngSwitchCase="'imperial'">ºF</span></p>
@@ -70,7 +73,7 @@
                                         <p><span>{{today.main.humidity}}</span>%</p>
                                         <div class="w-100 px-4 humidityMeter">
                                             <p class="d-flex justify-content-between"><span>0%</span> <span>50%</span> <span>100%</span></p>
-                                            <meter class="w-100" id="humidity" [value]="today.main.humidity" min="0" max="100"></meter>
+                                            <meter class="w-100" id="humidity" [value]="meterValue" min="0" max="100"></meter>
                                         </div>
                                     </div>
                                 </div>

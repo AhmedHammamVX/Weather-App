@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ApiService } from '../services/api.service';
 import { cityStatus } from '../models/cityStatus';
 import { selectedCity } from '../models/selectedCity';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-main',
@@ -14,14 +15,16 @@ export class MainComponent implements OnInit {
   constructor(private apiService: ApiService) { }
   open: boolean = false;
   citySuggestions: any = [];
-  @ViewChild('searchInput', {static: true}) searchInput! : ElementRef;
-  currentCity:selectedCity = new selectedCity('EG',30.0443879,31.2357257,'Cairo','Cairo');
-  cityForecast:cityStatus = new cityStatus({name:'loading'},[{main:{humidity:0,pressure:0,temp:0,temp_max:0,temp_min:0},visibility:0,weather:[{description:'loading',icon:'01n',main:'loading'}],wind:{deg:0,speed:0}}]); 
-  cityForecast16:cityStatus["list"] = [{dt:0,main:{humidity:0,pressure:0,temp:0,temp_max:0,temp_min:0},visibility:0,weather:[{description:'loading',icon:'01n',main:'loading'}],wind:{deg:0,speed:0}}];
-  tempUnit:string = "metric"; //Celsius
-  today:any = this.cityForecast.list[0];
-  todaysDate:string = new Date().toUTCString().slice(0,11);
-  arrowIcon!:HTMLElement ;
+  @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
+  currentCity: selectedCity = new selectedCity('EG', 30.0443879, 31.2357257, 'Cairo', 'Cairo');
+  cityForecast: cityStatus = new cityStatus({ name: 'loading' }, [{ main: { humidity: 0, pressure: 0, temp: 0, temp_max: 0, temp_min: 0 }, visibility: 0, weather: [{ description: 'loading', icon: '01n', main: 'loading' }], wind: { deg: 0, speed: 0 } }]);
+  cityForecast16: cityStatus["list"] = [{ dt: 0, main: { humidity: 0, pressure: 0, temp: 0, temp_max: 0, temp_min: 0 }, visibility: 0, weather: [{ description: 'loading', icon: '01n', main: 'loading' }], wind: { deg: 0, speed: 0 } }];
+  tempUnit: string = "metric"; //Celsius
+  today: any = this.cityForecast.list[0];
+  todaysDate: string = new Date().toUTCString().slice(0, 11);
+  arrowIcon!: HTMLElement;
+  meterValue: number = 0;
+  errorState:boolean = false;
 
   //open search bar
   openSearchBar() {
@@ -50,27 +53,23 @@ export class MainComponent implements OnInit {
         console.log(error);
       })
     }
-    else
-    {
+    else {
       this.citySuggestions = [];
     }
   }
 
   //select city which i want to get its temperature 
-  selectCity(city:any)
-  {
+  selectCity(city: any) {
     this.searchInput.nativeElement.value = `${city.name}, ${city.country}`;
     this.currentCity = city as selectedCity;
     this.citySuggestions = [];
-    console.log(this.currentCity);
-    console.log(this.citySuggestions);
+    //console.log(this.currentCity);
+    //console.log(this.citySuggestions);
   }
 
   //rounding degrees
-  rounding(degree:number,state:number)
-  {
-    switch(state)
-    {
+  rounding(degree: number, state: number) {
+    switch (state) {
       case 1:
         return Math.ceil(degree);
         break;
@@ -79,99 +78,86 @@ export class MainComponent implements OnInit {
         break;
       default:
         return Math.round(degree);
-    } 
+    }
   }
 
   //choose tempreture unit between Celsius & Fahrenheit
-  choosedUnit(key:string)
-  {
+  choosedUnit(key: string) {
     this.tempUnit = key;
     this.getCityForecast();
   }
 
   //get my current location
-  getMyLocation()
-  {
-    navigator.geolocation.getCurrentPosition((position) => { 
-      console.log("Got position", position.coords);
-      this.currentCity.lat = position.coords.latitude;  
+  getMyLocation() {
+    navigator.geolocation.getCurrentPosition((position) => {
+      //console.log("Got position", position.coords);
+      this.currentCity.lat = position.coords.latitude;
       this.currentCity.lon = position.coords.longitude;
-      console.log(this.citySuggestions);
+      //console.log(this.citySuggestions);
       //get city forecast
       this.getCityForecast();
     });
-  } 
+  }
 
   //get city forecast
-  getCityForecast()
+  getCityForecast() {
+    if (this.searchInput.nativeElement.value.trim() === '' && this.open == true) {
+      this.showError();
+    }
+    else
+    {
+      this.apiService.getCityForecast(this.currentCity.lat, this.currentCity.lon, this.tempUnit).subscribe((data) => {
+        this.cityForecast = data as cityStatus;
+        this.today = this.cityForecast.list[0];
+        this.cityForecast16 = this.cityForecast.list.slice(0, 16) as cityStatus["list"];
+        //rotate wind arrow 
+        this.arrowIcon.style.transform = `rotate(${(this.today.wind.deg) - 45}deg)`;
+        //close search bar
+        this.closeSearchBar();
+        //animate meter
+        this.animateMeter(this.today.main.humidity);
+      }, (error) => {
+        console.log(error);
+      })
+    }
+  }
+
+  //show search field error
+  showError()
   {
-    console.log("new log "+this.currentCity.lat)
-    this.apiService.getCityForecast(this.currentCity.lat,this.currentCity.lon,this.tempUnit).subscribe((data)=>{
-      this.cityForecast = data as cityStatus;
-      this.today = this.cityForecast.list[0];
-      this.cityForecast16 = this.cityForecast.list.slice(0,16) as cityStatus["list"];
-      console.log(this.cityForecast16);
-      //rotate wind arrow 
-      this.arrowIcon.style.transform = `rotate(${(this.today.wind.deg)-45}deg)`;
-      //close search bar
-      this.closeSearchBar();
-      console.log(data);
-      console.log(this.citySuggestions);
-    },(error)=>{
-      console.log(error);
-    })
+    this.errorState = true;
+    setTimeout(() => {
+      this.errorState = false;
+    }, 2000);
   }
 
   //convert date
-  convertDate(date:number)
-  {
-    return new Date(date*1000).toLocaleString("en-US", {
+  convertDate(date: number) {
+    return new Date(date * 1000).toLocaleString("en-US", {
       hour12: true,
-      weekday:"short",
+      weekday: "short",
       hour: "numeric",  // ***
     });
   }
 
   //get weather direction 
-   getWDirection(deg:number)
-  {
+  getWDirection(deg: number) {
     return this.apiService.getWDirection(deg);
   }
 
-  //counting from 0 to value
-  /* counting(end:number)
-  {
-    
-    let start = 0;
-    let timer = setInterval(()=>{
-      start++
-      if(start === end)
-      {
-        clearInterval(timer);
-        return null;
-      }
-      else
-      {
-        console.log("testinggg");
-        return start;
-      }
-    },1000);
-  } */
-
-  counting(element:HTMLElement,end:number)
-  {
-    let start = 0;
-    let timer = setInterval(()=>{
-      start++;
-      element.innerText = start.toString();
-      if(start === end)
-      {
+  //animate humidity meter
+  animateMeter(value: number) {
+    this.meterValue = 0;
+    console.log("value " + value);
+    console.log("meterValue " + this.meterValue);
+    let timer = setInterval(() => {
+      this.meterValue += 2;
+      console.log(this.meterValue);
+      if (this.meterValue >= value) {
         clearInterval(timer);
       }
-    },1000);
-    
+    }, 10);
   }
-
 
   ngOnInit(): void {
     //wind arrow
