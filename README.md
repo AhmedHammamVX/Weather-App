@@ -1,27 +1,45 @@
-# WeatherApp
+<br/>
+<p align="center">
+  <h3 align="center">Weather App</h3>
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.3.
+  <p align="center">
+    know weather state wherever you are!
+    <br/>
+    <br/>
+    <a href="https://github.com/AhmedHammamVX/Weather-App">View Demo</a>
+    .
+    <a href="https://github.com/AhmedHammamVX/Weather-App/issues">Report Bug</a>
+    .
+    <a href="https://github.com/AhmedHammamVX/Weather-App/issues">Request Feature</a>
+  </p>
+</p>
 
-## Development server
+![Downloads](https://img.shields.io/github/downloads/AhmedHammamVX/Weather-App/total) ![Contributors](https://img.shields.io/github/contributors/AhmedHammamVX/Weather-App?color=dark-green) ![Forks](https://img.shields.io/github/forks/AhmedHammamVX/Weather-App?style=social) ![Stargazers](https://img.shields.io/github/stars/AhmedHammamVX/Weather-App?style=social) ![Issues](https://img.shields.io/github/issues/AhmedHammamVX/Weather-App) 
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## About The Project
 
-## Code scaffolding
+![Screen Shot](https://github.com/AhmedHammamVX/Weather-App/blob/master/showcase.PNG)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+This is a simple project to let you know the weather state in your place or other locations. The weather state includes:
+* Today's and the next 16 days' temperatures
+* You have the option to switch between Fahrenheit and Celsius.
+* Wind Status.
+* Humidity.
+* The level of air pressure
+* Visibility.
+using the openweathermap API, which is one of the good alternatives to the Metaweather API.
 
-## Build
+## Built With
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+* [Angular](https://angular.io/)
+* [Bootstrap 5.2](https://getbootstrap.com/)
+* [TypeScript](https://www.typescriptlang.org/)
+* [openweathermap API](https://openweathermap.org/)
 
-## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Authors
 
-## Further help
+* [Ahmed Hammam](https://github.com/AhmedHammamVX) - *Front-end developer* 
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
