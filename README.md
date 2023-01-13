@@ -20,13 +20,15 @@
 
 ![Screen Shot](https://github.com/AhmedHammamVX/Weather-App/blob/master/showcase.PNG)
 
-This is a simple project to let you know the weather state in your place or other locations. The weather state includes:
+This is a simple project lets you know the weather state in your place or other locations. The weather state includes:
 * Current temperature and the next 48 hours.
-* You have the option to switch between Fahrenheit and Celsius.
+* Option to switch between Fahrenheit and Celsius.
 * Wind Status.
 * Humidity.
 * The level of air pressure
 * Visibility.
+* Search for location using many languages. 
+<br/>
 using the openweathermap API, which is one of the good alternatives to the Metaweather API.
 
 ## Built With
