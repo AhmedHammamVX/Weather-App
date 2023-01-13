@@ -6,11 +6,11 @@
     know weather state wherever you are!
     <br/>
     <br/>
-    <a href="https://github.com/AhmedHammamVX/Weather-App">View Demo</a>
+    <a href="https://ahmedhammamvx.github.io/Weather-App/">View Demo</a>
     .
     <a href="https://github.com/AhmedHammamVX/Weather-App/issues">Report Bug</a>
     .
-    <a href="https://github.com/AhmedHammamVX/Weather-App/issues">Request Feature</a>
+    <a href="https://github.com/AhmedHammamVX/Weather-App/pulls">Request Feature</a>
   </p>
 </p>
 
