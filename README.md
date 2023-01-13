@@ -21,7 +21,7 @@
 ![Screen Shot](https://github.com/AhmedHammamVX/Weather-App/blob/master/showcase.PNG)
 
 This is a simple project to let you know the weather state in your place or other locations. The weather state includes:
-* Today's and the next 16 days' temperatures
+* Current temperature and the next 48 hours.
 * You have the option to switch between Fahrenheit and Celsius.
 * Wind Status.
 * Humidity.
