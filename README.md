@@ -27,8 +27,9 @@ This is a simple project lets you know the weather state in your place or other 
 * Humidity.
 * The level of air pressure
 * Visibility.
-* Search for location using many languages. 
-*Using the openweathermap API, which is one of the good alternatives to the Metaweather API.*
+* Search for location using many languages.
+ 
+Using the openweathermap API, which is one of the good alternatives to the Metaweather API.
 
 ## Built With
 
