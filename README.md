@@ -1,6 +1,6 @@
 <br/>
 <p align="center">
-  <h3 align="center">Weather App</h3>
+  <h1 align="center">Weather App</h1>
 
   <p align="center">
     know weather state wherever you are!
